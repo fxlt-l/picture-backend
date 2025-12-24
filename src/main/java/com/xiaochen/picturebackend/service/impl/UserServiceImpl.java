@@ -14,6 +14,7 @@ import com.xiaochen.picturebackend.exception.ThrowUtils;
 import com.xiaochen.picturebackend.mapper.UserMapper;
 import com.xiaochen.picturebackend.model.dto.user.UserQueryRequest;
 import com.xiaochen.picturebackend.model.entity.User;
+import com.xiaochen.picturebackend.model.enums.UserRoleEnum;
 import com.xiaochen.picturebackend.model.vo.LoginUserVO;
 import com.xiaochen.picturebackend.model.vo.UserVO;
 import com.xiaochen.picturebackend.service.UserService;
@@ -137,6 +138,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return null;
         }
         return BeanUtil.copyProperties(user, UserVO.class);
+    }
+
+    /**
+     * 判断用户是否为管理员
+     * @param user
+     * @return
+     */
+    @Override
+    public boolean isAdmin(User user) {
+        return user != null && StrUtil.equals(user.getUserRole(), UserRoleEnum.ADMIN.getValue());
     }
 
     @Override

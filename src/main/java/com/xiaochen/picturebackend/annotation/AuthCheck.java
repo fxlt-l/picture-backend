@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @version 1.0
  * @description: 权限校验注解
  */
-@Target(ElementType.MODULE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthCheck {
     String mustRole() default "";

@@ -13,7 +13,6 @@ import com.xiaochen.picturebackend.model.vo.LoginUserVO;
 import com.xiaochen.picturebackend.model.vo.UserVO;
 import com.xiaochen.picturebackend.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     @Resource
     private UserService userService;
+
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         ThrowUtils.throwIf(userRegisterRequest == null, ErrorCode.PARAMS_ERROR);
@@ -39,7 +39,6 @@ public class UserController {
     }
 
     /**
-     *
      * @param userLoginRequest
      * @param request
      * @return
@@ -66,6 +65,7 @@ public class UserController {
     }
 
     //region 增删改查
+
     /**
      * 创建用户
      */
@@ -80,6 +80,7 @@ public class UserController {
         boolean res = userService.save(user);
         return ResultUtils.success(res ? user.getId() : null);
     }
+
     /**
      * 删除用户
      */
@@ -100,16 +101,18 @@ public class UserController {
         ThrowUtils.throwIf(user == null, ErrorCode.NOT_FOUND_ERROR);
         return ResultUtils.success(user);
     }
+
     /**
      * 根据id查询用户
      */
-     @GetMapping("/get/vo")
+    @GetMapping("/get/vo")
     public BaseResponse<UserVO> getUserVOById(long id) {
-         ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
-         User user = userService.getById(id);
-         ThrowUtils.throwIf(user == null, ErrorCode.NOT_FOUND_ERROR);
-         return ResultUtils.success(userService.getUserVO(user));
-     }
+        ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
+        User user = userService.getById(id);
+        ThrowUtils.throwIf(user == null, ErrorCode.NOT_FOUND_ERROR);
+        return ResultUtils.success(userService.getUserVO(user));
+    }
+
     /**
      * 更新用户
      */
@@ -135,6 +138,9 @@ public class UserController {
         userVOPage.setRecords(userService.getUserVOList(userPage.getRecords()));
         return ResultUtils.success(userVOPage);
     }
+
+
+
 
 
     //endregion
