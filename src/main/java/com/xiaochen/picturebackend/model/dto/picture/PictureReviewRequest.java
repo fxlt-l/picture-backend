@@ -10,18 +10,22 @@ import java.io.Serializable;
  * @description: TODO
  */
 @Data
-public class PictureUploadRequest implements Serializable {
+public class PictureReviewRequest implements Serializable {
 
     /**
-     * 图片 id（用于修改）
+     * id
      */
     private Long id;
 
-    private String fileUrl;
     /**
-     * 图片名称
+     * 状态：0-待审核, 1-通过, 2-拒绝
      */
-    private String picName;
+    private Integer reviewStatus;
+
+    /**
+     * 审核信息
+     */
+    private String reviewMessage;
 
 
     private static final long serialVersionUID = 1L;
