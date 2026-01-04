@@ -2,10 +2,7 @@ package com.xiaochen.picturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaochen.picturebackend.model.dto.picture.PictureQueryRequest;
-import com.xiaochen.picturebackend.model.dto.picture.PictureReviewRequest;
-import com.xiaochen.picturebackend.model.dto.picture.PictureUploadByBatchRequest;
-import com.xiaochen.picturebackend.model.dto.picture.PictureUploadRequest;
+import com.xiaochen.picturebackend.model.dto.picture.*;
 import com.xiaochen.picturebackend.model.entity.Picture;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaochen.picturebackend.model.entity.User;
@@ -33,6 +30,10 @@ public interface PictureService extends IService<Picture> {
                             PictureUploadRequest pictureUploadRequest,
                             User loginUser);
 
+
+    void deletePicture(long pictureId, User loginUser);
+
+    void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
 
     LambdaQueryWrapper<Picture> getQueryWrapper(PictureQueryRequest pictureQueryRequest);
 
@@ -65,4 +66,6 @@ public interface PictureService extends IService<Picture> {
 
     @Async
     void clearPictureFile(Picture oldPicture);
+
+    void checkPictureAuth(User loginUser, Picture picture);
 }
