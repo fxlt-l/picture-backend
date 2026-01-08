@@ -1,0 +1,22 @@
+package com.xiaochen.picturebackend.model.dto.picture;
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * @author 小陈
+ * @version 1.0
+ * @description: TODO
+ */
+@Data
+public class SearchPictureByPictureRequest implements Serializable {
+
+    /**
+     * 图片 id
+     */
+    private Long pictureId;
+
+    private static final long serialVersionUID = 1L;
+}
+

@@ -2,15 +2,17 @@ package com.xiaochen.picturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaochen.picturebackend.api.ailiyunai.model.CreateOutPaintingTaskResponse;
 import com.xiaochen.picturebackend.model.dto.picture.*;
 import com.xiaochen.picturebackend.model.entity.Picture;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaochen.picturebackend.model.entity.User;
 import com.xiaochen.picturebackend.model.vo.PictureVO;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
 * @author 小陈
@@ -36,6 +38,8 @@ public interface PictureService extends IService<Picture> {
     void editPicture(PictureEditRequest pictureEditRequest, User loginUser);
 
     LambdaQueryWrapper<Picture> getQueryWrapper(PictureQueryRequest pictureQueryRequest);
+
+    List<PictureVO> searchPictureByColor(Long spaceId, String picColor, User loginUser);
 
     PictureVO getPictureVO(Picture picture, HttpServletRequest request);
 
@@ -68,4 +72,9 @@ public interface PictureService extends IService<Picture> {
     void clearPictureFile(Picture oldPicture);
 
     void checkPictureAuth(User loginUser, Picture picture);
+
+    @Transactional(rollbackFor = Exception.class)
+    void editPictureByBatch(PictureEditByBatchRequest pictureEditByBatchRequest, User loginUser);
+
+    CreateOutPaintingTaskResponse createPictureOutPaintingTask(CreatePictureOutPaintingTaskRequest createPictureOutPaintingTaskRequest, User loginUser);
 }
