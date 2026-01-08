@@ -13,11 +13,9 @@ import com.xiaochen.picturebackend.exception.BusinessException;
 import com.xiaochen.picturebackend.exception.ThrowUtils;
 import com.xiaochen.picturebackend.model.dto.space.SpaceAddRequest;
 import com.xiaochen.picturebackend.model.dto.space.SpaceQueryRequest;
-import com.xiaochen.picturebackend.model.entity.Picture;
 import com.xiaochen.picturebackend.model.entity.Space;
 import com.xiaochen.picturebackend.model.entity.User;
 import com.xiaochen.picturebackend.model.enums.SpaceLevelEnum;
-import com.xiaochen.picturebackend.model.vo.PictureVO;
 import com.xiaochen.picturebackend.model.vo.SpaceVO;
 import com.xiaochen.picturebackend.model.vo.UserVO;
 import com.xiaochen.picturebackend.service.SpaceService;
@@ -206,7 +204,19 @@ public class SpaceServiceImpl extends ServiceImpl<SpaceMapper, Space>
         }
     }
 
-
+    /**
+     * 空间权限校验
+     *
+     * @param loginUser
+     * @param space
+     */
+    @Override
+    public void checkSpaceAuth(User loginUser, Space space) {
+        // 仅本人或管理员可访问
+        if (!space.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+        }
+    }
 }
 
 

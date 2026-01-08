@@ -62,6 +62,7 @@ public class AliYunAiApi {
                 log.error("AI 扩图失败，errorCode:{}, errorMessage:{}", errorCode, errorMessage);
                 throw new BusinessException(ErrorCode.OPERATION_ERROR, "AI 扩图接口响应异常");
             }
+            log.info("📞 开始调用阿里云API，图片URL: {}", createOutPaintingTaskRequest.getInput());
             return response;
         }
     }
@@ -73,6 +74,7 @@ public class AliYunAiApi {
      * @return
      */
     public GetOutPaintingTaskResponse getOutPaintingTask(String taskId) {
+        log.info("📞 开始调用阿里云API，taskId {}", taskId);
         if (StrUtil.isBlank(taskId)) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "任务 id 不能为空");
         }
